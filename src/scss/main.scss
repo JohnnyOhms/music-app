@@ -1,0 +1,33 @@
+@import "./config";
+@import "./music-1";
+@import "./music-2";
+@import "./footer";
+@import "./music-3";
+
+body{
+  height: 100vh;
+  background: rgba($color: #000000, $alpha: .9);
+  color: set-text-color(rgba($color: #000000, $alpha: .8));
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+//   @include transition;
+
+  .container{
+    height: 100%;
+
+    .music-player {
+      margin: 2px;
+      padding: 2px;
+      height: 100%;
+      position: relative;
+
+        &__row {
+          display: grid;
+          grid-template-columns: 1fr 4fr 1fr;
+          height: 100vh - 15vh;
+          // background-color: aqua;
+
+        }
+    }
+  }
+
+}

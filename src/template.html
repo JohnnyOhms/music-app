@@ -11,38 +11,46 @@
       <div class="music-player">
         <div class="music-player__row">
           <div class="music-player__row__one">
-            <form action="" id="form">
-              <div class="form__serch-field">
-                <input type="text" placeholder="search" id="search" />
-              </div>
-              <!-- search icon-->
-            </form>
-
-            <div class="nav">
-              <div class="nav__home">
-                <!-- home icon -->
-                <p>Home</p>
-              </div>
-              <div class="nav__browse">
-                <!-- browse icon -->
-                <p>Browse</p>
-              </div>
-            </div>
-
-            <div class="library">
-              <div class="liberary__section">
-                <div class="liberary__section__head">
-                  <p>YOUR LIBRARY</p>
+            <div class="music-player__row__one__section">
+              <form action="" class="form" autocomplete="off">
+                <div class="form__serch-field">
+                  <input
+                    type="text"
+                    placeholder="search"
+                    id="search"
+                    class="form__serch-field__input"
+                  />
                 </div>
-                <p>lorem10</p>
-                <p>lorem10</p>
-                <p>lorem10</p>
-                <p>lorem10</p>
-              </div>
-            </div>
+                <i class="fa-solid fa-magnifying-glass"></i>
+              </form>
 
-            <div class="song-img">
-              <img src="/images (2).jpeg" alt="" id="song_img" />
+              <div class="nav">
+                <div class="nav__home">
+                  <i class="fa-solid fa-house"></i>
+                  <p>Home</p>
+                </div>
+                <div class="nav__browse">
+                  <i class="fa-solid fa-music"></i>
+                  <p>Music</p>
+                </div>
+              </div>
+
+              <div class="library">
+                <div class="library__section">
+                  <div class="library__section__head">
+                    <span>YOUR LIBRARY</span>
+                  </div>
+                  <p>made for you</p>
+                  <p>recently played</p>
+                  <p>liked song</p>
+                  <p>Album</p>
+                  <p>Artist</p>
+                </div>
+              </div>
+
+              <div class="song-img">
+                <img src="./img/music-img.jpg" alt="" id="song_img" />
+              </div>
             </div>
           </div>
 
@@ -53,29 +61,27 @@
               </div>
 
               <div class="control-btn">
-                <!-- shuffle icon -->
-                <!-- plus icon -->
-                <!-- <input type="file" name="+" id="" /> -->
+                <i class="fa-solid fa-shuffle"></i>
+                <i class="fa-solid fa-plus"></i>
+                <input type="file" name="" id="add-music" hidden />
               </div>
             </div>
 
             <div class="music-section">
               <div class="music-section__select">
-                <div class="music">21 pilot</div>
-                <div class="music">Post malone</div>
-                <div class="music">AJR electronic sounds</div>
+                <div class="music">
+                  <p>Post malone</p>
+                  <span><i class="fa-solid fa-heart fav-select"></i></span>
+                </div>
               </div>
             </div>
           </div>
 
           <div class="music-player__row__three">
             <div class="most-played">
+              <p class="most-played__head">MOST PLAYED SONGS</p>
               <div class="most-played__list">
-                <p>Lorem ipsum dolor sit. <span>5</span></p>
-                <p>Lorem ipsum dolor sit. <span>5</span></p>
-                <p>Lorem ipsum dolor sit. <span>5</span></p>
-                <p>Lorem ipsum dolor sit. <span>5</span></p>
-                <p>Lorem ipsum dolor sit. <span>5</span></p>
+                <p><span>ipsum dolor sit.</span> <span> (5)</span></p>
               </div>
             </div>
           </div>
@@ -88,7 +94,13 @@
               <p>Dont throw out my legos</p>
             </div>
 
-            <div class="track-control"></div>
+            <div class="track__control">
+              <i class="fa-solid fa-shuffle"></i>
+              <i class="fa-solid fa-backward"></i>
+              <i class="fa-solid fa-play"></i>
+              <i class="fa-solid fa-forward"></i>
+              <i class="fa-solid fa-repeat"></i>
+            </div>
 
             <div class="timer">
               <p>2:28/5:56</p>

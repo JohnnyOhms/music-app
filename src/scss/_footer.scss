@@ -1,0 +1,82 @@
+.footer{
+    position: fixed;
+    bottom: 0;
+    left:0 ;
+    width: 100%;
+    height: 15vh;
+    display: flex;
+    justify-content: space-between;
+    border-top: 2pX solid $color-choco;
+    z-index: 1;
+    background: rgba($color: #000000, $alpha: .1);
+
+    .track{
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        height: 100%;
+
+        & > * {
+            margin: 1rem;
+        }
+
+        &__name{
+            min-width: 20%;
+            width: 20%;
+
+            strong{
+                font-size: $fn-large;
+                color: $color-orange;
+            }
+
+            p{
+                font-size: $fn-small;
+            } 
+        }
+
+        &__control{
+            margin: 1rem auto;
+            display: flex;
+            justify-content: space-between;
+
+
+            & > * {
+                padding: 1.2rem;
+                border-radius: 50%;
+                font-size: $fn-large;
+                margin: 0 auto;
+                cursor: pointer;
+
+                &:hover{
+                    background: $color-hover;
+                }
+            }
+        }
+
+        .timer{
+            display: inline-block;
+            height: 2rem;
+            padding: 2px;
+            font-size: $fn-small;
+        }
+
+        .volume{
+            padding: 2px;
+            height: 2rem;  
+        }
+    }
+
+    .duration{
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        padding: 5px;
+        display: flex;
+
+        & > *{
+            margin: 0 auto;
+            width: 70%;
+            padding-bottom: 1rem ;
+        }
+    }
+}
