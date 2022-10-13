@@ -1,0 +1,32 @@
+*{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+};
+
+$fn-xlarge: 24px;
+$fn-large: 20px;
+$fn-middle: 17px;
+$fn-small: 14px;
+
+$color-black: #000;
+$color-grey: #6b6161;
+$color-choco: #511e1e68;
+$color-orange: #ffa600b3;
+$color-hover:#ffa600bb;;
+$color-hover-2: #0000004d;
+$color-fav: #bd374e;
+
+
+@function set-text-color($color){
+    @if(lightness($color) > 40%){
+        @return #000;
+    }
+    @else{
+        @return #fff;
+    }
+}
+
+@mixin transition {
+    transition: all .5s ease;
+}
