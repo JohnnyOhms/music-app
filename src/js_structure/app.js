@@ -1,4 +1,5 @@
 import { Variables } from "../js_component/variables.js";
+// import { Shuffle } from "../js_component/shufffle.js";
 import { musicList, Images } from "./tracks.js";
 
 export class Music extends Variables {
@@ -11,6 +12,10 @@ export class Music extends Variables {
   loadTrack(index) {
     clearInterval(this.timer);
     this.track_duration.value = 0;
+    // if (this.shuffleBtn == 2) {
+    //   Shuffle.shuffleTrack();
+    //   this.audio.src = this.shuffleArray[index].path;
+    // }
     this.audio.src = musicList[index].path;
     this.track_name.innerHTML = `<strong>${musicList[index].artist}</strong><p>${musicList[index].songName}</p>`;
     this.audio.load();
@@ -39,6 +44,7 @@ export class Music extends Variables {
       "change",
       this.changeTrackDuration.bind(this)
     );
+    this.audio.addEventListener("timeupdate", this.updateSongTime.bind(this));
   }
 
   controlTrack(e) {
@@ -112,11 +118,12 @@ export class Music extends Variables {
   }
 
   enableShuffle(e) {
+    this.shuffleBtn++;
     if (this.shuffleBtn == 1) {
       this.shuffleBtn++;
       return (e.target.style.color = "#ffa600b3");
     }
-    this.shuffleBtn = 1;
+    this.shuffleBtn = 0;
     return (e.target.style.color = "white");
   }
 
@@ -159,11 +166,66 @@ export class Music extends Variables {
       function getTrackIndex(track) {
         return track.id === musicList[index].id;
       }
-      // console.log(singleIndex);
       this.loadTrack(singleIndex);
       this.audio.play();
     } else {
       return;
     }
+  }
+
+  updateSongTime() {
+    let currentMins = Math.floor(this.audio.currentTime / 60);
+    let currentSec = Math.floor(this.audio.currentTime - currentMins * 60);
+    let durationMins = Math.floor(this.audio.duration / 60);
+    let durationSec = Math.floor(this.audio.duration - durationMins * 60);
+
+    if (currentMins < 10) {
+      currentMins = "0" + currentMins;
+    }
+
+    if (currentSec < 10) {
+      currentSec = "0" + currentSec;
+    }
+
+    if (durationMins < 10) {
+      durationMins = "0" + durationMins;
+    }
+
+    if (durationSec < 10) {
+      durationSec = "0" + durationSec;
+    }
+
+    this.track_timer.innerHTML = `${currentMins}:${currentSec}/${durationMins}:${durationSec}`;
+
+    if (!this.audio.duration) {
+      this.track_timer.innerHTML = "00:00/00:00";
+    }
+  }
+}
+
+class Shuffle extends Variables {
+  constructor() {}
+
+  static shuffleMethod(array) {
+    let currenIndex = array.length,
+      randomIndex;
+    while (currenIndex != 0) {
+      randomIndex = Math.floor(Math.random() * currenIndex);
+      currenIndex--;
+
+      [array[currenIndex], array[randomIndex]] = [
+        array[randomIndex],
+        array[currenIndex],
+      ];
+    }
+
+    return array;
+  }
+
+  static shuffleTrack() {
+    this.shuffleArray = [...musicList];
+    Shuffle.shuffleMethod(this.shuffleArray);
+    // Shuffle.shuffleMethod(musicList);
+    console.log(this.shuffleArray);
   }
 }

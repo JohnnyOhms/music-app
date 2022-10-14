@@ -9,17 +9,17 @@ export class Variables {
     this.most_played = document.querySelector(".most-played__list");
     this.track_name = document.querySelector(".track__name");
     this.track_control = document.querySelector(".track__control");
-    this.track_timer = document.querySelector(".track p");
+    this.track_timer = document.querySelector(".timer__count");
     this.track_volume = document.querySelector("#volume-control");
     this.track_duration = document.querySelector("#track-duration");
     this.loop_CurrentSong = document.querySelector(".curr-repeat");
-    this.audio = document.createElement("audio");
+    this.audio = new Audio();
     this.timer;
     this.trackIndex = 0;
     this.trackNowPlaying = false;
     this.auto_repeat = 0;
     this.imageCount = 0;
     this.shuffleArray = [];
-    this.shuffleBtn = 1;
+    this.shuffleBtn = 0;
   }
 }

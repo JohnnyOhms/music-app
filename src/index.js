@@ -1,4 +1,5 @@
 import { Music } from "./js_structure/app.js";
-import { Variables } from "./js_component/variables.js";
+// import { Shuffle } from "./js_component/shufffle.js";
 
 const music = new Music();
+// const shufffle = new Shuffle();

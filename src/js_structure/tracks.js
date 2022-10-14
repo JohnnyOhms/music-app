@@ -11,6 +11,24 @@ export const musicList = [
     path: "../music/song-2.mp3",
     id: Math.random(),
   },
+  {
+    artist: "AJR",
+    songName: "Infinity",
+    path: "../music/song-3.m4a",
+    id: Math.random(),
+  },
+  {
+    artist: "AJR",
+    songName: "Come hang out",
+    path: "../music/song-4.mp3",
+    id: Math.random(),
+  },
+  {
+    artist: "AJR",
+    songName: "Netflix trip",
+    path: "../music/song-5.mp3",
+    id: Math.random(),
+  },
 ];
 
 export const Images = [
