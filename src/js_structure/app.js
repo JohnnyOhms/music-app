@@ -12,11 +12,12 @@ export class Music extends Variables {
   loadTrack(index) {
     clearInterval(this.timer);
     this.track_duration.value = 0;
-    // if (this.shuffleBtn == 2) {
-    //   Shuffle.shuffleTrack();
-    //   this.audio.src = this.shuffleArray[index].path;
-    // }
-    this.audio.src = musicList[index].path;
+    if (this.shuffleBtn == 2) {
+      Shuffle.shuffleTrack();
+      this.audio.src = this.shuffleArray[index].path;
+    } else {
+      this.audio.src = musicList[index].path;
+    }
     this.track_name.innerHTML = `<strong>${musicList[index].artist}</strong><p>${musicList[index].songName}</p>`;
     this.audio.load();
     this.timer = setInterval(this.trackSlideDuration.bind(this), 1000);
