@@ -4,7 +4,7 @@ export class Variables {
     this.song_img = document.querySelector("#song_img");
     this.control_btn = document.querySelector(".control-btn");
     this.add_music = document.querySelector("#add-music");
-    this.musics = document.querySelectorAll(".music");
+    this.musics_select = document.querySelector(".music-section__select");
     this.fav_music = document.querySelectorAll(".fav-select");
     this.most_played = document.querySelector(".most-played__list");
     this.track_name = document.querySelector(".track__name");
@@ -19,7 +19,6 @@ export class Variables {
     this.trackNowPlaying = false;
     this.auto_repeat = 0;
     this.imageCount = 0;
-    this.shuffleArray = [];
     this.shuffleBtn = 0;
   }
 }

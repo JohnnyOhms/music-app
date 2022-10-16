@@ -1,26 +1,34 @@
 import { Variables } from "../js_component/variables.js";
-// import { Shuffle } from "../js_component/shufffle.js";
 import { musicList, Images } from "./tracks.js";
+let shuffleArray = [];
 
 export class Music extends Variables {
   constructor() {
     super();
     this.configure();
+    this.loadTrack(this.trackIndex);
     this.loadImage();
+    this.displayTracks();
   }
 
   loadTrack(index) {
     clearInterval(this.timer);
     this.track_duration.value = 0;
     if (this.shuffleBtn == 2) {
-      Shuffle.shuffleTrack();
-      this.audio.src = this.shuffleArray[index].path;
+      this.shuffleControl(index);
     } else {
       this.audio.src = musicList[index].path;
+      this.track_name.innerHTML = `<strong>${musicList[index].artist}</strong><p>${musicList[index].songName}</p>`;
     }
-    this.track_name.innerHTML = `<strong>${musicList[index].artist}</strong><p>${musicList[index].songName}</p>`;
     this.audio.load();
     this.timer = setInterval(this.trackSlideDuration.bind(this), 1000);
+  }
+
+  shuffleControl(index) {
+    let obj = Shuffle.shuffleTrack();
+    let shuffled = Object.values(obj[index])[2];
+    this.audio.src = shuffled;
+    this.track_name.innerHTML = `<strong>${obj[index].artist}</strong><p>${obj[index].songName}</p>`;
   }
 
   loadImage() {
@@ -46,6 +54,7 @@ export class Music extends Variables {
       this.changeTrackDuration.bind(this)
     );
     this.audio.addEventListener("timeupdate", this.updateSongTime.bind(this));
+    this.control_btn, addEventListener("click", this.controlBtn.bind(this));
   }
 
   controlTrack(e) {
@@ -62,20 +71,35 @@ export class Music extends Variables {
     }
   }
 
-  startSong(e) {
-    this.loadTrack(this.trackIndex);
-    this.loadImage();
-    if (!this.trackNowPlaying) {
-      this.audio.play();
-      this.trackNowPlaying = true;
-      e.target.classList.replace("fa-play", "fa-pause");
-      e.target.style.color = "#ffa600b3";
-    } else {
-      this.audio.pause();
-      e.target.classList.replace("fa-pause", "fa-play");
-      this.trackNowPlaying = false;
-      e.target.style.color = "#ffff";
+  controlBtn(e) {
+    if (e.target.classList.contains("shuffle-play")) {
+      this.shufflePlay(e);
     }
+  }
+
+  startSong(e) {
+    if (!this.trackNowPlaying) {
+      this.play();
+      this.addSelectOnplay();
+    } else {
+      this.pause();
+    }
+  }
+
+  play() {
+    let play_pause_btn = document.querySelector(".play-btn");
+    this.audio.play();
+    this.trackNowPlaying = true;
+    play_pause_btn.classList.replace("fa-play", "fa-pause");
+    play_pause_btn.style.color = "#ffa600b3";
+  }
+
+  pause() {
+    let play_pause_btn = document.querySelector(".play-btn");
+    this.audio.pause();
+    play_pause_btn.classList.replace("fa-pause", "fa-play");
+    this.trackNowPlaying = false;
+    play_pause_btn.style.color = "#ffff";
   }
 
   nextSong() {
@@ -83,11 +107,13 @@ export class Music extends Variables {
     if (this.trackIndex >= musicList.length - 1) {
       this.trackIndex = 0;
       this.loadTrack(this.trackIndex);
-      this.audio.play();
+      this.play();
+      this.addSelectOnplay();
     } else {
       this.trackIndex++;
       this.loadTrack(this.trackIndex);
-      this.audio.play();
+      this.play();
+      this.addSelectOnplay();
     }
   }
 
@@ -96,11 +122,13 @@ export class Music extends Variables {
     if (!this.trackIndex <= 0) {
       this.trackIndex--;
       this.loadTrack(this.trackIndex);
-      this.audio.play();
+      this.play();
+      this.addSelectOnplay();
     } else {
       this.trackIndex = musicList.length - 1;
       this.loadTrack(this.trackIndex);
-      this.audio.play();
+      this.play();
+      this.addSelectOnplay();
     }
   }
 
@@ -128,6 +156,15 @@ export class Music extends Variables {
     return (e.target.style.color = "white");
   }
 
+  shufflePlay(e) {
+    let shuffleTrackBtn = document.querySelector("#shuffle-btn");
+    shuffleTrackBtn.style.color = "#ffa600b3";
+    this.enableShuffle(e);
+    e.target.style.color = "#ffff";
+    this.loadTrack(this.trackIndex);
+    this.play();
+  }
+
   changeVolume() {
     this.audio.volume = this.track_volume.value / 100;
   }
@@ -149,12 +186,16 @@ export class Music extends Variables {
       if (this.trackIndex < musicList.length - 1) {
         this.trackIndex++;
         this.loadTrack(this.trackIndex);
-        this.audio.play();
+        this.play();
+        this.addSelectOnplay();
       } else {
         if (this.auto_repeat == 1) {
           this.trackIndex = 0;
           this.loadTrack(this.trackIndex);
-          this.audio.play();
+          this.play();
+          this.addSelectOnplay();
+        } else {
+          this.pause();
         }
       }
     }
@@ -163,12 +204,14 @@ export class Music extends Variables {
   singleRepeat() {
     if (this.auto_repeat == 2) {
       let index = this.trackIndex;
-      let singleIndex = musicList.findIndex(getTrackIndex);
+      let singleIndex =
+        musicList.findIndex(getTrackIndex) ||
+        shuffleArray.findIndex(getTrackIndex);
       function getTrackIndex(track) {
-        return track.id === musicList[index].id;
+        return track.id === musicList[index].id || track.id === shuffleArray.id;
       }
       this.loadTrack(singleIndex);
-      this.audio.play();
+      this.play();
     } else {
       return;
     }
@@ -202,6 +245,56 @@ export class Music extends Variables {
       this.track_timer.innerHTML = "00:00/00:00";
     }
   }
+
+  displayTracks() {
+    let display = "";
+    let counter1 = 0,
+      counter2 = 0;
+    musicList.forEach((track) => {
+      display += `<div class="music" data-id=${counter1++}>
+                  <p data-id=${counter2++} id="para">${track.songName}</p>
+                  <span><i class="fa-solid fa-heart fav-select"></i></span>
+                </div> `;
+    });
+    this.musics_select.innerHTML = display;
+    this.selectTrackToPlay();
+  }
+
+  selectTrackToPlay() {
+    const musics = document.querySelectorAll(".music");
+    musics.forEach((item) => {
+      item.addEventListener("click", (e) => {
+        let index = e.target.dataset.id;
+        musics.forEach((item) => {
+          item.classList.remove("selected");
+          e.target.classList.add("selected");
+          if (e.target.id === "para") {
+            e.target.parentElement.classList.add("selected");
+          }
+        });
+        if (index) {
+          this.loadTrack(index);
+          this.play();
+        }
+      });
+    });
+  }
+
+  addSelectOnplay() {
+    const musics = document.querySelectorAll(".music");
+    musics.forEach((item) => {
+      if (this.shuffleBtn === 2) {
+        item.classList.remove("selected");
+        return;
+      }
+      if (item.dataset.id === this.trackIndex.toString()) {
+        musics.forEach((item) => {
+          item.classList.remove("selected");
+        });
+        item.classList.add("selected");
+      }
+    });
+  }
 }
 
 class Shuffle extends Variables {
@@ -224,9 +317,8 @@ class Shuffle extends Variables {
   }
 
   static shuffleTrack() {
-    this.shuffleArray = [...musicList];
-    Shuffle.shuffleMethod(this.shuffleArray);
-    // Shuffle.shuffleMethod(musicList);
-    console.log(this.shuffleArray);
+    shuffleArray = [...musicList];
+    Shuffle.shuffleMethod(shuffleArray);
+    return shuffleArray;
   }
 }
