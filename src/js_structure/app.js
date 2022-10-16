@@ -295,6 +295,13 @@ export class Music extends Variables {
       }
     });
   }
+
+  selectFav() {
+    const fav = [...document.querySelectorAll("fav-select")];
+    fav.map((item) => {
+      item.addEventListener("click", (e) => {});
+    });
+  }
 }
 
 class Shuffle extends Variables {
