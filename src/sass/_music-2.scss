@@ -77,6 +77,11 @@
                 cursor: pointer;
                 @include transition;
 
+                .fa-heart{
+                    font-size: $fn-large;
+                    padding: 0;
+                    margin: 0;
+                }
                 .fa-heart.fav{
                     color:$color-fav;
                     font-size: $fn-large;

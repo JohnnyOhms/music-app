@@ -1,6 +1,8 @@
 import { Variables } from "../js_component/variables.js";
 import { musicList, Images } from "./tracks.js";
+// import { AudioVisulization } from "../js_component/audioVisualizer";
 let shuffleArray = [];
+let list;
 
 export class Music extends Variables {
   constructor() {
@@ -81,6 +83,7 @@ export class Music extends Variables {
     if (!this.trackNowPlaying) {
       this.play();
       this.addSelectOnplay();
+      this.audioVisualization();
     } else {
       this.pause();
     }
@@ -249,15 +252,17 @@ export class Music extends Variables {
   displayTracks() {
     let display = "";
     let counter1 = 0,
-      counter2 = 0;
+      counter2 = 0,
+      counter3 = 0;
     musicList.forEach((track) => {
       display += `<div class="music" data-id=${counter1++}>
                   <p data-id=${counter2++} id="para">${track.songName}</p>
-                  <span><i class="fa-solid fa-heart fav-select"></i></span>
+                  <span><i class="fa-solid fa-heart fav-select" data-id="${counter3++}"></i></span>
                 </div> `;
     });
     this.musics_select.innerHTML = display;
     this.selectTrackToPlay();
+    this.selectFav();
   }
 
   selectTrackToPlay() {
@@ -297,10 +302,81 @@ export class Music extends Variables {
   }
 
   selectFav() {
-    const fav = [...document.querySelectorAll("fav-select")];
+    const fav = [...document.querySelectorAll(".fav-select")];
     fav.map((item) => {
-      item.addEventListener("click", (e) => {});
+      item.addEventListener("click", (e) => {
+        let id = item.dataset.id;
+        if (!this.favourite) {
+          this.favourite = true;
+          item.classList.add("fav");
+          Storage.addToStorage(id);
+        } else {
+          item.classList.remove("fav");
+          this.favourite = false;
+          Storage.getFromStorage();
+          list.filter(function (e) {
+            return e === id;
+          });
+          Storage.addToStorage(list);
+        }
+      });
     });
+  }
+
+  audioVisualization() {
+    var context = new AudioContext();
+    var src = context.createMediaElementSource(this.audio);
+    var analyser = context.createAnalyser();
+    var canvas = document.getElementById("canvas");
+    var ctx = canvas.getContext("2d");
+    src.connect(analyser);
+    analyser.connect(context.destination);
+    analyser.fftSize = 256;
+    // var bufferLength = analyser.frequencyBinCount;
+    var bufferLength = 50;
+    var dataArray = new Uint8Array(bufferLength);
+    var WIDTH = canvas.width;
+    var HEIGHT = canvas.height;
+    var barWidth = (WIDTH / bufferLength) * 2.5;
+    var barHeight;
+    var x = 0;
+    function renderFrame() {
+      requestAnimationFrame(renderFrame);
+      x = 0;
+      analyser.getByteFrequencyData(dataArray);
+      ctx.fillStyle = "rgba(82, 30, 30, 0.296)";
+      ctx.fillRect(0, 0, WIDTH, HEIGHT);
+      for (var i = 0; i < bufferLength; i++) {
+        barHeight = dataArray[i];
+        var r = 186;
+        var g = 133;
+        var b = 34;
+
+        ctx.fillStyle = "rgb(" + r + "," + g + "," + b + ")";
+        ctx.fillRect(x, HEIGHT - barHeight, barWidth, barHeight);
+        x += barWidth + 1;
+      }
+    }
+    this.audio.play();
+    renderFrame();
+  }
+}
+
+class Storage extends Variables {
+  constructor() {}
+
+  static getFromStorage() {
+    if (localStorage.getItem("fav") === null) {
+      list = [];
+    } else {
+      list = JSON.parse(localStorage.getItem("fav"));
+    }
+  }
+
+  static addToStorage(id) {
+    Storage.getFromStorage();
+    list.push(id);
+    localStorage.setItem("fav", JSON.stringify(list));
   }
 }
 
@@ -329,3 +405,52 @@ class Shuffle extends Variables {
     return shuffleArray;
   }
 }
+// class AudioVisulization extends Variables {
+//   constructor() {}
+
+//   static visualization() {
+//     console.log(this.audio);
+//     var context = new AudioContext();
+//     var src = context.createMediaElementSource(this.audio);
+//     var analyser = context.createAnalyser();
+//     var canvas = document.getElementById("canvas");
+//     //   canvas.width = window.innerWidth;
+//     //   canvas.height = window.innerHeight;
+//     var ctx = canvas.getContext("2d");
+//     src.connect(analyser);
+//     analyser.connect(context.destination);
+//     analyser.fftSize = 256;
+//     var bufferLength = analyser.frequencyBinCount;
+//     console.log(bufferLength);
+//     var dataArray = new Uint8Array(bufferLength);
+//     var WIDTH = canvas.width;
+//     var HEIGHT = canvas.height;
+//     console.log(WIDTH);
+//     console.log(HEIGHT);
+//     var barWidth = (150 / bufferLength) * 2.5;
+//     var barHeight;
+//     var x = 0;
+//     function renderFrame() {
+//       requestAnimationFrame(renderFrame);
+//       x = 0;
+//       analyser.getByteFrequencyData(dataArray);
+//       ctx.fillStyle = "#ffff";
+//       ctx.fillRect(0, 0, WIDTH, HEIGHT);
+//       for (var i = 0; i < bufferLength; i++) {
+//         barHeight = dataArray[i];
+//         //   var r = barHeight + 25 * (i / bufferLength);
+//         var r = 31;
+//         var g = 250 * (i / bufferLength);
+//         var b = 24;
+//         console.log(r);
+//         console.log(g);
+//         console.log(b);
+//         ctx.fillStyle = "rgb(" + r + "," + g + "," + b + ")";
+//         ctx.fillRect(x, HEIGHT - barHeight, barWidth, barHeight);
+//         x += barWidth + 1;
+//       }
+//     }
+//     audio.play();
+//     renderFrame();
+//   }
+// }

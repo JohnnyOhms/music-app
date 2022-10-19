@@ -20,5 +20,6 @@ export class Variables {
     this.auto_repeat = 0;
     this.imageCount = 0;
     this.shuffleBtn = 0;
+    this.favourite = false;
   }
 }
