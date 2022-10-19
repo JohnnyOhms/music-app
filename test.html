@@ -19,7 +19,6 @@
       .container {
         position: relative;
         height: 100vh;
-        background-color: rgb(228, 142, 12);
       }
 
       #canvas {
@@ -41,7 +40,6 @@
         file.onchange = function () {
           var files = this.files;
           var source = URL.createObjectURL(files[0]);
-          console.log(source);
           audio.src = source;
           audio.load();
           audio.play();
@@ -60,7 +58,6 @@
           analyser.fftSize = 256;
 
           var bufferLength = analyser.frequencyBinCount;
-          console.log(bufferLength);
 
           var dataArray = new Uint8Array(bufferLength);
 
@@ -90,10 +87,6 @@
               var r = 31;
               var g = 250 * (i / bufferLength);
               var b = 24;
-
-              console.log(r);
-              console.log(g);
-              console.log(b);
 
               ctx.fillStyle = "rgb(" + r + "," + g + "," + b + ")";
               ctx.fillRect(x, HEIGHT - barHeight, barWidth, barHeight);

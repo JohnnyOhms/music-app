@@ -353,7 +353,7 @@ export class Music extends Variables {
         var b = 34;
 
         ctx.fillStyle = "rgb(" + r + "," + g + "," + b + ")";
-        ctx.fillRect(x, HEIGHT - barHeight, barWidth, barHeight);
+        ctx.fillRect(x, HEIGHT - (barHeight % 100), barWidth, barHeight);
         x += barWidth + 1;
       }
     }
@@ -405,52 +405,3 @@ class Shuffle extends Variables {
     return shuffleArray;
   }
 }
-// class AudioVisulization extends Variables {
-//   constructor() {}
-
-//   static visualization() {
-//     console.log(this.audio);
-//     var context = new AudioContext();
-//     var src = context.createMediaElementSource(this.audio);
-//     var analyser = context.createAnalyser();
-//     var canvas = document.getElementById("canvas");
-//     //   canvas.width = window.innerWidth;
-//     //   canvas.height = window.innerHeight;
-//     var ctx = canvas.getContext("2d");
-//     src.connect(analyser);
-//     analyser.connect(context.destination);
-//     analyser.fftSize = 256;
-//     var bufferLength = analyser.frequencyBinCount;
-//     console.log(bufferLength);
-//     var dataArray = new Uint8Array(bufferLength);
-//     var WIDTH = canvas.width;
-//     var HEIGHT = canvas.height;
-//     console.log(WIDTH);
-//     console.log(HEIGHT);
-//     var barWidth = (150 / bufferLength) * 2.5;
-//     var barHeight;
-//     var x = 0;
-//     function renderFrame() {
-//       requestAnimationFrame(renderFrame);
-//       x = 0;
-//       analyser.getByteFrequencyData(dataArray);
-//       ctx.fillStyle = "#ffff";
-//       ctx.fillRect(0, 0, WIDTH, HEIGHT);
-//       for (var i = 0; i < bufferLength; i++) {
-//         barHeight = dataArray[i];
-//         //   var r = barHeight + 25 * (i / bufferLength);
-//         var r = 31;
-//         var g = 250 * (i / bufferLength);
-//         var b = 24;
-//         console.log(r);
-//         console.log(g);
-//         console.log(b);
-//         ctx.fillStyle = "rgb(" + r + "," + g + "," + b + ")";
-//         ctx.fillRect(x, HEIGHT - barHeight, barWidth, barHeight);
-//         x += barWidth + 1;
-//       }
-//     }
-//     audio.play();
-//     renderFrame();
-//   }
-// }
