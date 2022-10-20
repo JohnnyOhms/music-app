@@ -306,20 +306,13 @@ export class Music extends Variables {
   selectFav() {
     const fav = [...document.querySelectorAll(".fav-select")];
     fav.map((item) => {
-      item.addEventListener("click", (e) => {
-        let id = item.dataset.id;
+      item.addEventListener("click", () => {
         if (!this.favourite) {
           this.favourite = true;
           item.classList.add("fav");
-          Storage.addToStorage(id);
         } else {
           item.classList.remove("fav");
           this.favourite = false;
-          Storage.getFromStorage();
-          list.filter(function (e) {
-            return e === id;
-          });
-          Storage.addToStorage(list);
         }
       });
     });
@@ -390,24 +383,6 @@ export class Music extends Variables {
     }
     this.audio.play();
     renderFrame();
-  }
-}
-
-class Storage extends Variables {
-  constructor() {}
-
-  static getFromStorage() {
-    if (localStorage.getItem("fav") === null) {
-      list = [];
-    } else {
-      list = JSON.parse(localStorage.getItem("fav"));
-    }
-  }
-
-  static addToStorage(id) {
-    Storage.getFromStorage();
-    list.push(id);
-    localStorage.setItem("fav", JSON.stringify(list));
   }
 }
 
