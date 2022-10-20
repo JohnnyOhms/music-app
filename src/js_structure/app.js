@@ -76,6 +76,8 @@ export class Music extends Variables {
   controlBtn(e) {
     if (e.target.classList.contains("shuffle-play")) {
       this.shufflePlay(e);
+    } else if (e.target.classList.contains("add-music")) {
+      this.addMusic();
     }
   }
 
@@ -323,6 +325,35 @@ export class Music extends Variables {
     });
   }
 
+  addMusic() {
+    const filePath = document.getElementById("add-music");
+    filePath.click();
+    let source = undefined;
+    let files = undefined;
+
+    filePath.onchange = function () {
+      files = this.files;
+      source = URL.createObjectURL(files[0]);
+      changed();
+    };
+
+    const changed = () => {
+      this.updateMusicList(source, files);
+    };
+  }
+
+  updateMusicList(src, files) {
+    let obj = {
+      artist: "Audio",
+      songName: files[0].name,
+      path: src,
+      id: Math.random(),
+    };
+    musicList.push(obj);
+    this.musics_select.innerHTML = "";
+    this.displayTracks();
+  }
+
   audioVisualization() {
     var context = new AudioContext();
     var src = context.createMediaElementSource(this.audio);
@@ -353,7 +384,7 @@ export class Music extends Variables {
         var b = 34;
 
         ctx.fillStyle = "rgb(" + r + "," + g + "," + b + ")";
-        ctx.fillRect(x, HEIGHT - (barHeight % 100), barWidth, barHeight);
+        ctx.fillRect(x, HEIGHT - barHeight * 0.5, barWidth, barHeight);
         x += barWidth + 1;
       }
     }
