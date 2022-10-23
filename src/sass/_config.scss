@@ -30,3 +30,15 @@ $color-fav: #bd374e;
 @mixin transition {
     transition: all .5s ease;
 }
+
+@mixin tablet-view {
+    @media screen and (max-width: 900px) {
+        @content;
+    }
+}
+
+@mixin mobile-view {
+    @media screen and (max-width: 600px) {
+        @content;
+    }
+}

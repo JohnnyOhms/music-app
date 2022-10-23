@@ -13,6 +13,10 @@
         display: flex;
         position: relative;
 
+       img{
+        visibility: hidden;
+       }
+
         &__title{
             position: absolute;
             bottom: .7rem;

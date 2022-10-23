@@ -3,12 +3,16 @@
 @import "./music-2";
 @import "./footer";
 @import "./music-3";
+@import "./home";
+@import "./responsive";
 
 body{
   height: 100vh;
   background: rgba($color: #000000, $alpha: .9);
   color: set-text-color(rgba($color: #000000, $alpha: .8));
   font-family: Verdana, Geneva, Tahoma, sans-serif;
+  position: relative;
+  overflow: hidden;
 //   @include transition;
 
   .container{

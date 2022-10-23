@@ -1,6 +1,5 @@
 import { Variables } from "../js_component/variables.js";
 import { musicList, Images } from "./tracks.js";
-// import { AudioVisulization } from "../js_component/audioVisualizer";
 let shuffleArray = [];
 let list;
 
@@ -11,6 +10,14 @@ export class Music extends Variables {
     this.loadTrack(this.trackIndex);
     this.loadImage();
     this.displayTracks();
+  }
+
+  alert(text) {
+    this.footer_alert.textContent = text;
+    this.footer_alert.classList.add("show");
+    setTimeout(() => {
+      this.footer_alert.classList.remove("show");
+    }, 1500);
   }
 
   loadTrack(index) {
@@ -35,15 +42,24 @@ export class Music extends Variables {
 
   loadImage() {
     if (this.imageCount === 0) {
-      this.song_img.src = Images[this.imageCount].path;
+      this.song_img.forEach((img) => {
+        img.src = Images[this.imageCount].path;
+      });
+      // this.song_img.src = Images[this.imageCount].path;
       return this.imageCount++;
     }
     if (this.imageCount == 1) {
-      this.song_img.src = Images[this.imageCount].path;
+      this.song_img.forEach((img) => {
+        img.src = Images[this.imageCount].path;
+      });
+      // this.song_img.src = Images[this.imageCount].path;
       return (this.imageCount = 2);
     }
     if (this.imageCount == 2) {
-      this.song_img.src = Images[this.imageCount].path;
+      this.song_img.forEach((img) => {
+        img.src = Images[this.imageCount].path;
+      });
+      // this.song_img.src = Images[this.imageCount].path;
       return (this.imageCount = 0);
     }
   }
@@ -141,8 +157,10 @@ export class Music extends Variables {
     if (this.auto_repeat == 0) {
       e.target.style.color = "#ffa600b3";
       this.auto_repeat++;
+      this.alert("Repeat all Tracks");
     } else if (this.auto_repeat == 1) {
       this.loop_CurrentSong.classList.remove("hide");
+      this.alert("Repeat current song");
       this.auto_repeat++;
     } else {
       this.auto_repeat = 0;
@@ -155,6 +173,7 @@ export class Music extends Variables {
     this.shuffleBtn++;
     if (this.shuffleBtn == 1) {
       this.shuffleBtn++;
+      this.alert("shuffle Tracks");
       return (e.target.style.color = "#ffa600b3");
     }
     this.shuffleBtn = 0;
@@ -168,6 +187,7 @@ export class Music extends Variables {
     e.target.style.color = "#ffff";
     this.loadTrack(this.trackIndex);
     this.play();
+    this.alert("shuffle Tracks");
   }
 
   changeVolume() {
@@ -310,9 +330,11 @@ export class Music extends Variables {
         if (!this.favourite) {
           this.favourite = true;
           item.classList.add("fav");
+          this.alert("add to favourite");
         } else {
           item.classList.remove("fav");
           this.favourite = false;
+          this.alert("remove from favourite");
         }
       });
     });

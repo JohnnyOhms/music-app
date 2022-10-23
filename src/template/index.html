@@ -8,10 +8,33 @@
       src="https://kit.fontawesome.com/2dfc8161ff.js"
       crossorigin="anonymous"
     ></script>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Righteous|Pacificso|Righteous"
+    />
     <link rel="stylesheet" href="../../dist/css/main.css" />
     <title>Custume music player</title>
   </head>
   <body>
+    <!-- <div class="home">
+      <main>
+        <p>Custume Music player</p>
+        <i class="fa-solid fa-headphones"></i>
+        <button>Listen Now</button>
+        <div class="social-icons">
+          <a href="#!">
+            <i class="fab fa-twitter"></i>
+          </a>
+          <a href="#!">
+            <i class="fab fa-facebook"></i>
+          </a>
+          <a href="#!">
+            <i class="fab fa-github"></i>
+          </a>
+        </div>
+      </main>
+    </div> -->
+
     <div class="container">
       <div class="music-player">
         <div class="music-player__row">
@@ -61,6 +84,7 @@
 
           <div class="music-player__row__two">
             <div class="header">
+              <img src="" alt="image" id="song_img" />
               <div class="header__title">
                 <p>Songs List</p>
               </div>
@@ -84,17 +108,12 @@
           </div>
 
           <div class="music-player__row__three">
-            <div class="most-played">
-              <!-- <p class="most-played__head">Audio Visualization</p> -->
-              <!-- <div class="most-played__list">
-                <p><span>ipsum dolor sit.</span> <span> (5)</span></p>
-              </div> -->
-            </div>
             <canvas id="canvas"></canvas>
           </div>
         </div>
 
         <div class="footer">
+          <div class="footer__alert"></div>
           <div class="track">
             <div class="track__name">
               <strong></strong>
