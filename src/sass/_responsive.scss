@@ -37,59 +37,45 @@
         }
     
         &__three {
-            display: none;
-            visibility: hidden;
+            position: absolute;
+            bottom: 0;
+            width: 100vw;
+            height: 6vh;
+     
+            #canvas{
+                position: absolute;
+                bottom: 1px;
+                left: 0;
+                height: 100%;
+                width: 100%;
+                // background-color: red;
+            }
         }
     }
 
-
         .footer {
-            // width: 100%;
-            // height: 15vh;
-            // display: flex;
-            // justify-content: space-between;
-            // border-top: 2pX solid $color-choco;
-            // background-color: $color-choco;
-            // overflow: hidden;
-    
             &__alert {
-                position: absolute;
-                z-index: 3;
-                bottom: 20px;
-                right: 30px;
-                background-color: grey;
-                color: set-text-color(grey);
-                font-size: $fn-small;
-                padding: 8px;
-                border-radius: 5px;
-                @include transition;
-                transform: translateY(300%);
-    
+                right: 10px;
+
                 &.show {
                     transform: translateY(0);
                 }
             }
     
             .track {
-                // display: flex;
-                // justify-content: space-between;
-                // width: 100%;
-                // height: 100%;
-                background-color: blue;
     
-                & >* {
-                    margin: 2px;
+                & > * {
+                    margin: 0;
                 }
     
                 &__name {
+                    margin-top: 7px;
                     width: 10%;
                     height: 50%;
                     overflow: auto;
-                    background-color: red;
     
                     strong {
                         font-size: $fn-small;
-                        // color: $color-orange;
                     }
     
                     p {
@@ -98,89 +84,28 @@
                 }
     
                 &__control {
-                    display: fixed;
-                    left: 50%;
-                    right: 50%;
-                    transform: translateX(-50%, -50%);
-                    margin-top: .6rem;
+                    margin-top: 7px;
                     height: 40px;
-                    background-color: red;
-         
-    
     
                     & > * {
                         padding: 2px 8px;
-                        border-radius: 0;
                         font-size: $fn-large;
-                        // margin: auto;
-                        // cursor: pointer;
-    
-                        // &:hover {
-                        //     background: $color-hover-2;
-                        // }
-    
-                        // .hide {
-                        //     visibility: hidden;
-                        // }
+                    }
+                    
+                    .curr-repeat{
+                        right: 10px;
                     }
                 }
     
                 .timer {
-                    // display: inline-block;
                     height: 20px;
-                    padding: 0;
-                    background-color: red;
-                    // font-size: $fn-small;
+                    padding-right: 2px;
+                    margin-top: 7px;
                 }
     
                 .volume {
-                    padding: 1rem;
-                    height: 0;
-                    // background-color: red;
-            
-                    // height: 10px;
-                    // width: 6px;
-                    background-color: red;
-                    // bottom: 0;
-
-                    & > * {
-
-                    }
-               
+                    display: none;
                 }
             }
-    
-            .duration {
-                position: absolute;
-                bottom: 0;
-                width: 100%;
-                background-color: red;
-                padding: 5px;
-                display: flex;
-    
-                & > * {
-                    margin: 0 auto;
-                    width: 50%;
-                    margin-bottom: 1rem;
-                }
-            }
-    
-            // input[type="range"] {
-            //     -webkit-appearance: none;
-            //     appearance: none;
-            //     background: $color-orange;
-            //     height: 5px;
-            //     border-radius: 3rem;
-            //     cursor: pointer;
-    
-            //     &::-webkit-slider-thumb {
-            //         -webkit-appearance: none;
-            //         appearance: none;
-            //         background-color: set-text-color($color-black);
-            //         height: 1.3rem;
-            //         width: 1.3rem;
-            //         border-radius: 50%;
-            //     }
-            // }
         }
 }
