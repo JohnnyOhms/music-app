@@ -6,11 +6,8 @@
 
         &__one {
             @include transition;
-            transform: translateX(-150%);
-            position: absolute;
-            background-color: grey;
-            z-index: 1;
-            width: 70vw;            
+            display: none;
+            position: absolute;           
         }
     
         &__two {
@@ -37,7 +34,7 @@
         }
     
         &__three {
-            position: absolute;
+            position: fixed;
             bottom: 0;
             width: 100vw;
             height: 6vh;
@@ -48,12 +45,12 @@
                 left: 0;
                 height: 100%;
                 width: 100%;
-                // background-color: red;
             }
         }
     }
 
         .footer {
+            bottom: 6vh;
             &__alert {
                 right: 10px;
 
@@ -86,10 +83,16 @@
                 &__control {
                     margin-top: 7px;
                     height: 40px;
-    
+            
                     & > * {
-                        padding: 2px 8px;
-                        font-size: $fn-large;
+                        padding: 6px;
+                        margin: 3px;
+                        background-color: $color-hover;
+                        font-size: $fn-xlarge;
+
+                        &:hover{
+                            background-color: $color-hover;
+                        }
                     }
                     
                     .curr-repeat{
