@@ -112,20 +112,6 @@
                 display: none;
             }
 
-            .duration {
-                position: absolute;
-                bottom: 0;
-                width: 100%;
-                padding: 5px;
-                display: flex;
-                background-color: red;
-
-                & > * {
-                    margin: 0 auto;
-                    width: 70%;
-                    margin-bottom: 1rem;
-                }
-            }
         }
     }
 
