@@ -37,7 +37,8 @@
             position: fixed;
             bottom: 0;
             width: 100vw;
-            height: 6vh;
+            height: 5vh;
+            
      
             #canvas{
                 position: absolute;
@@ -50,7 +51,7 @@
     }
 
         .footer {
-            bottom: 6vh;
+            // bottom: 6vh;
             &__alert {
                 right: 10px;
 
@@ -87,11 +88,10 @@
                     & > * {
                         padding: 6px;
                         margin: 3px;
-                        background-color: $color-hover;
-                        font-size: $fn-xlarge;
+                        font-size: 27px;
 
                         &:hover{
-                            background-color: $color-hover;
+                            background-color: none;
                         }
                     }
                     
