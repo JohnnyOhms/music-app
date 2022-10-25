@@ -115,6 +115,8 @@
         -webkit-appearance: none;
         appearance: none;
         background: $color-orange;
+        border: 2px solid black;
+        padding: 2px;
         height: 5px;
         border-radius: 3rem;
         cursor: pointer;
