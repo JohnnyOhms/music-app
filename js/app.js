@@ -1,7 +1,6 @@
-import { Variables } from "../js_component/variables.js";
+import { Variables } from "./variables.js";
 import { musicList, Images } from "./tracks.js";
 let shuffleArray = [];
-let list;
 
 export class Music extends Variables {
   constructor() {

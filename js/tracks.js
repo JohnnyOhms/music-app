@@ -33,12 +33,12 @@ export const musicList = [
 
 export const Images = [
   {
-    path: "../../image/image-1.jpg",
+    path: "../image/image-1.jpg",
   },
   {
-    path: "../../image/image-2.jpg",
+    path: "../image/image-2.jpg",
   },
   {
-    path: "../../image/image-3.jpg",
+    path: "../image/image-3.jpg",
   },
 ];
